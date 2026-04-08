@@ -1,45 +1,44 @@
 // ============================================
-// CLASE MONITOR
+// CLASE DISPOSITIVOENTRADA (BASE)
 // ============================================
-class Monitor {
-    // Atributo estático para llevar la cuenta de monitores creados
-    static contadorMonitores = 0;
-
-    constructor(marca, tamaño) {
-        this._idMonitor = ++Monitor.contadorMonitores; // Asigna ID autoincremental
+class DispositivoEntrada {
+    constructor(tipoEntrada, marca) {
+        this._tipoEntrada = tipoEntrada;
         this._marca = marca;
-        this._tamaño = tamaño;
     }
 
-    // Método getter solicitado para obtener solo el idMonitor
-    get idMonitor() {
-        return this._idMonitor;
+    // Getters y Setters
+    get tipoEntrada() {
+        return this._tipoEntrada;
     }
 
-    // Método toString
+    set tipoEntrada(tipoEntrada) {
+        this._tipoEntrada = tipoEntrada;
+    }
+
+    get marca() {
+        return this._marca;
+    }
+
+    set marca(marca) {
+        this._marca = marca;
+    }
+
     toString() {
-        return `Monitor [ID: ${this._idMonitor}, Marca: ${this._marca}, Tamaño: ${this._tamaño}]`;
+        return `Tipo: ${this._tipoEntrada}, Marca: ${this._marca}`;
     }
 
-    // Responsabilidad: Crear objetos de tipo Monitor (ya se cumple con el constructor)
+    // Responsabilidad: Crear objetos de tipo DispositivoEntrada
 }
 
-// Prueba de la clase Monitor
-console.log("=== PRUEBA DE MONITOR ===");
-const monitor1 = new Monitor("Samsung", "24 pulgadas");
-const monitor2 = new Monitor("LG", "27 pulgadas");
-console.log(monitor1.toString());
-console.log(monitor2.toString());
-console.log("ID del monitor1 usando getter:", monitor1.idMonitor);
-console.log("-----------------------------------\n");
-
 // ============================================
-// CLASE TECLADO
+// CLASE TECLADO (HEREDA DE DISPOSITIVOENTRADA)
 // ============================================
-class Teclado {
+class Teclado extends DispositivoEntrada {
     static contadorTeclados = 0;
 
-    constructor() {
+    constructor(marca) {
+        super("Teclado", marca); // tipoEntrada fijo como "Teclado"
         this._idTeclado = ++Teclado.contadorTeclados;
     }
 
@@ -48,27 +47,20 @@ class Teclado {
     }
 
     toString() {
-        return `Teclado [ID: ${this._idTeclado}]`;
+        return `Teclado [ID: ${this._idTeclado}, ${super.toString()}]`;
     }
 
     // Responsabilidad: Crear objetos de tipo Teclado
 }
 
-// Prueba de Teclado
-console.log("=== PRUEBA DE TECLADO ===");
-const teclado1 = new Teclado();
-const teclado2 = new Teclado();
-console.log(teclado1.toString());
-console.log(teclado2.toString());
-console.log("-----------------------------------\n");
-
 // ============================================
-// CLASE RATON
+// CLASE RATON (HEREDA DE DISPOSITIVOENTRADA)
 // ============================================
-class Raton {
+class Raton extends DispositivoEntrada {
     static contadorRatones = 0;
 
-    constructor() {
+    constructor(marca) {
+        super("Ratón", marca); // tipoEntrada fijo como "Ratón"
         this._idRaton = ++Raton.contadorRatones;
     }
 
@@ -77,19 +69,32 @@ class Raton {
     }
 
     toString() {
-        return `Ratón [ID: ${this._idRaton}]`;
+        return `Ratón [ID: ${this._idRaton}, ${super.toString()}]`;
     }
 
     // Responsabilidad: Crear objetos de tipo Raton
 }
 
-// Prueba de Raton
-console.log("=== PRUEBA DE RATÓN ===");
-const raton1 = new Raton();
-const raton2 = new Raton();
-console.log(raton1.toString());
-console.log(raton2.toString());
-console.log("-----------------------------------\n");
+// ============================================
+// CLASE MONITOR
+// ============================================
+class Monitor {
+    static contadorMonitores = 0;
+
+    constructor(marca, tamaño) {
+        this._idMonitor = ++Monitor.contadorMonitores;
+        this._marca = marca;
+        this._tamaño = tamaño;
+    }
+
+    get idMonitor() {
+        return this._idMonitor;
+    }
+
+    toString() {
+        return `Monitor [ID: ${this._idMonitor}, Marca: ${this._marca}, Tamaño: ${this._tamaño}]`;
+    }
+}
 
 // ============================================
 // CLASE COMPUTADORA
@@ -113,18 +118,7 @@ class Computadora {
         return `Computadora [ID: ${this._idComputadora}, Nombre: ${this._nombre}, ` +
                `${this._monitor.toString()}, ${this._teclado.toString()}, ${this._raton.toString()}]`;
     }
-
-    // Responsabilidad: Crear objetos de tipo Monitor (aunque en este caso la creación la hace Monitor)
-    // Aquí simplemente se reciben objetos Monitor ya creados.
 }
-
-// Prueba de Computadora
-console.log("=== PRUEBA DE COMPUTADORA ===");
-const pc1 = new Computadora("PC Gamer", monitor1, teclado1, raton1);
-const pc2 = new Computadora("PC Oficina", monitor2, teclado2, raton2);
-console.log(pc1.toString());
-console.log(pc2.toString());
-console.log("-----------------------------------\n");
 
 // ============================================
 // CLASE ORDEN
@@ -134,14 +128,13 @@ class Orden {
 
     constructor() {
         this._idOrden = ++Orden.contadorOrdenes;
-        this._computadoras = []; // Arreglo de objetos Computadora
+        this._computadoras = [];
     }
 
     get idOrden() {
         return this._idOrden;
     }
 
-    // Agrega una computadora al arreglo
     agregarComputadora(computadora) {
         if (computadora instanceof Computadora) {
             this._computadoras.push(computadora);
@@ -150,7 +143,6 @@ class Orden {
         }
     }
 
-    // Muestra el contenido completo de la orden
     mostrarOrden() {
         console.log(`=== ORDEN #${this._idOrden} ===`);
         console.log(`Total de computadoras: ${this._computadoras.length}`);
@@ -159,23 +151,49 @@ class Orden {
         });
         console.log("=============================");
     }
-
-    // Responsabilidades:
-    // - Crear objetos de tipo Orden (constructor)
-    // - Almacenar un arreglo de objetos de tipo Computadora (arreglo _computadoras)
 }
 
-// Prueba de Orden
+// ============================================
+// PRUEBAS ACTUALIZADAS (con marcas para teclado y ratón)
+// ============================================
+console.log("=== PRUEBA DE MONITOR ===");
+const monitor1 = new Monitor("Samsung", "24 pulgadas");
+const monitor2 = new Monitor("LG", "27 pulgadas");
+console.log(monitor1.toString());
+console.log(monitor2.toString());
+console.log("ID del monitor1 usando getter:", monitor1.idMonitor);
+console.log("-----------------------------------\n");
+
+console.log("=== PRUEBA DE TECLADO ===");
+const teclado1 = new Teclado("Logitech");
+const teclado2 = new Teclado("Corsair");
+console.log(teclado1.toString());
+console.log(teclado2.toString());
+console.log("-----------------------------------\n");
+
+console.log("=== PRUEBA DE RATÓN ===");
+const raton1 = new Raton("Razer");
+const raton2 = new Raton("HP");
+console.log(raton1.toString());
+console.log(raton2.toString());
+console.log("-----------------------------------\n");
+
+console.log("=== PRUEBA DE COMPUTADORA ===");
+const pc1 = new Computadora("PC Gamer", monitor1, teclado1, raton1);
+const pc2 = new Computadora("PC Oficina", monitor2, teclado2, raton2);
+console.log(pc1.toString());
+console.log(pc2.toString());
+console.log("-----------------------------------\n");
+
 console.log("=== PRUEBA DE ORDEN Y FUNCIONALIDAD COMPLETA ===");
 const orden1 = new Orden();
 orden1.agregarComputadora(pc1);
 orden1.agregarComputadora(pc2);
 orden1.mostrarOrden();
 
-// Crear una tercera computadora con nuevos periféricos
 const monitor3 = new Monitor("Dell", "21.5 pulgadas");
-const teclado3 = new Teclado();
-const raton3 = new Raton();
+const teclado3 = new Teclado("Microsoft");
+const raton3 = new Raton("Logitech");
 const pc3 = new Computadora("PC Multimedia", monitor3, teclado3, raton3);
 
 const orden2 = new Orden();
