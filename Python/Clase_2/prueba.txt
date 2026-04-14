@@ -1,0 +1,17 @@
+Programamos con diferentes tipos de archovos, ahora en txt.
+Los acentos son importantes para las palabras
+como por ejemplo: acción, ejecución y procucción
+Las letras son: 
+"r" de read, 
+"a" de append, 
+"w" de write, 
+"x" de create.
+
+------------
+
+t es para texto o text, 
+b es para binario o binary, 
+w+ lee y escribe, 
+r+ similar al anterior
+Prueba de escritura recorriendo con loop for
+Con esto terminamos
