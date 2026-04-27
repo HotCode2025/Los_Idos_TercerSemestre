@@ -196,6 +196,11 @@ orden1.agregarComputadora(pc1);
 orden1.agregarComputadora(pc2);
 orden1.mostrarOrden();
 
+console.log("\n--- Dispositivos individuales ---");
+console.log(monitor1.descripcion());
+console.log(teclado1.descripcion());
+console.log(raton1.descripcion());
+
 // Se aplicó polimorfismo mediante el método descripcion(), 
 // el cual es implementado de forma diferente en cada clase (Teclado, Ratón, Monitor y Computadora). 
 // La clase Orden utiliza este método sin conocer el tipo específico del objeto, logrando un comportamiento dinámico y flexible.
