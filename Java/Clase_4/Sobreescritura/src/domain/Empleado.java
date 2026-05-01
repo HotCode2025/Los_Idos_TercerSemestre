@@ -7,7 +7,7 @@ public class Empleado {
     protected double sueldo;
     
     public Empleado(String nombre,  double sueldo){
-        this. nombre = nombre;
+        this.nombre = nombre;
         this.sueldo = sueldo;
     }
 //Método para la sobreescritura
