@@ -15,7 +15,7 @@
         let jugador = 0
         let max = 3
         let min = 1
-        let pc = Math.floor(Math.random()*(max-min+1)+min)
+        let pc = numeroRandom(min, max) //acá se corrigió, llamando a la función 
         jugador = prompt("Elige: 1 piedra, 2 papel, 3 tijera")
 
         //alert("Elige jugador+"+jugador)
@@ -27,6 +27,15 @@
             alert("Elegiste tijera")
         } else{
             alert("Elegiste perder")
+        }
+
+        //Se agrega esta corrección, donde se muestra la elección de la pc
+         if(pc == 1){
+            alert("PC eligió piedra")
+        } else if(pc == 2){
+            alert("PC eligió papel")
+        } else {
+            alert("PC eligió tijera")
         }
 
         //Combate
