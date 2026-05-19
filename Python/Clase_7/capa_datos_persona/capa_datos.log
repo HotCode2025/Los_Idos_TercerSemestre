@@ -1,0 +1,21 @@
+09:59:50 PM:DEBUG [logger_base.py:14] Mensaje a nivel debug
+09:59:50 PM:INFO [logger_base.py:15] Mensaje a nivel info
+09:59:50 PM:WARNING [logger_base.py:16] Mensaje a nivel warning
+09:59:50 PM:ERROR [logger_base.py:17] Mensaje a nivel error
+09:59:50 PM:CRITICAL [logger_base.py:18] Mensaje a nivel critical
+10:08:58 PM:DEBUG [Persona.py:48] Persona [id_persona=1, nombre=Juan, apellido=Perez, email=jperez@email.com]
+10:10:21 PM:DEBUG [Persona.py:48] Persona [id_persona=1, nombre=Juan, apellido=Perez, email=jperez@email.com]
+10:12:43 PM:DEBUG [Persona.py:48] Persona [id_persona=1, nombre=Juan, apellido=Perez, email=jperez@email.com]
+10:12:43 PM:DEBUG [Persona.py:50] Persona [id_persona=None, nombre=Jose, apellido=Lepez, email=jlopez@mail.com]
+10:13:42 PM:DEBUG [Persona.py:48] Persona [id_persona=1, nombre=Juan, apellido=Perez, email=jperez@email.com]
+10:13:42 PM:DEBUG [Persona.py:50] Persona [id_persona=None, nombre=Jose, apellido=Lepez, email=jlopez@mail.com]
+10:13:42 PM:DEBUG [Persona.py:52] Persona [id_persona=1, nombre=None, apellido=None, email=None]
+10:28:26 PM:ERROR [conexion.py:26] Occurió un error de tipo: 'utf-8' codec can't decode byte 0xab in position 90: invalid start byte
+10:29:37 PM:ERROR [conexion.py:26] Occurió un error de tipo: 'utf-8' codec can't decode byte 0xab in position 90: invalid start byte
+10:31:43 PM:DEBUG [conexion.py:23] Conexión exitosa: <connection object at 0x000001DE26B2BEF0; dsn: 'user=postgres password=xxx dbname=test_bd host=127.0.0.1 port=5432', closed: 0>
+10:34:30 PM:DEBUG [conexion.py:23] Conexión exitosa: <connection object at 0x000001F56EA7FEF0; dsn: 'user=postgres password=xxx dbname=test_bd host=127.0.0.1 port=5432', closed: 0>
+10:44:41 PM:DEBUG [conexion.py:23] Conexión exitosa: <connection object at 0x000002C4A153FEF0; dsn: 'user=postgres password=xxx dbname=test_bd host=127.0.0.1 port=5432', closed: 0>
+10:45:05 PM:DEBUG [conexion.py:23] Conexión exitosa: <connection object at 0x00000222F4FCFEF0; dsn: 'user=postgres password=xxx dbname=test_bd host=127.0.0.1 port=5432', closed: 0>
+10:46:04 PM:DEBUG [conexion.py:23] Conexión exitosa: <connection object at 0x0000023F64A5FEF0; dsn: 'user=postgres password=xxx dbname=test_bd host=127.0.0.1 port=5432', closed: 0>
+10:50:17 PM:DEBUG [conexion.py:23] Conexión exitosa: <connection object at 0x0000026A3888F450; dsn: 'user=postgres password=xxx dbname=test_bd host=127.0.0.1 port=5432', closed: 0>
+10:50:17 PM:DEBUG [conexion.py:36] Se abrió correctamente el cursor: <cursor object at 0x0000026A3A566EA0; closed: 0>
