@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problema de las N Reinas</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="container">
+
+        <h1>Problema de las N Reinas</h1>
+
+        <section class="controls">
+            <label for="n">Tamaño N mínimo 8:</label>
+            <input type="number" id="n" min="8" value="8">
+
+            <button id="solveBtn">Resolver</button>
+            <button id="nextBtn" disabled>Siguiente solución</button>
+        </section>
+
+        <p id="message" class="message">
+            Ingrese un valor de N igual o mayor a 8 y presione Resolver.
+        </p>
+
+        <section class="boards-container">
+
+            <div class="board-box">
+                <h2>Proceso</h2>
+                <div id="processBoard" class="board"></div>
+            </div>
+
+            <div class="board-box">
+                <h2>Solución</h2>
+                <div id="solutionBoard" class="board"></div>
+            </div>
+
+        </section>
+
+        <section class="indexes-box">
+            <h2>Arreglo de índices de columnas</h2>
+            <p id="indexes">[]</p>
+        </section>
+
+    </main>
+
+    <script src="n_reinas.js"></script>
+</body>
+</html>
