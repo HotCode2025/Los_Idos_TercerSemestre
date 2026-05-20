@@ -1,88 +1,90 @@
-const nInput = document.getElementById("n");
-const solveBtn = document.getElementById("solveBtn");
-const nextBtn = document.getElementById("nextBtn");
-const processBoard = document.getElementById("processBoard");
-const solutionBoard = document.getElementById("solutionBoard");
-const message = document.getElementById("message");
-const indexes = document.getElementById("indexes");
+const inputN = document.getElementById("n");
+const btnResolver = document.getElementById("btnResolver");
+const btnSiguiente = document.getElementById("btnSiguiente");
+const tableroProceso = document.getElementById("tableroProceso");
+const tableroSolucion = document.getElementById("tableroSolucion");
+const mensaje = document.getElementById("mensaje");
+const arregloHTML = document.getElementById("arreglo");
 
-let soluciones = []; //Guardamos las soluciones encontradas para el valor ingresado
-let pasosProceso = []; //Guardamos los pasos para los pasos del primer recorrido y así mostrar el proceso visualmente 
-let solucionActual = 0; 
+let soluciones = [];
+let pasos = [];
+let solucionActual = 0;
 
-//Conectamos los botones con las funciones principales del programa 
-solveBtn.addEventListener("click", resolver);
-nextBtn.addEventListener("click", siguienteSolucion);
+// Botones principales del programa
+btnResolver.addEventListener("click", resolver);
+btnSiguiente.addEventListener("click", mostrarSiguiente);
 
-//Validamos el valor ingresado, busca soluciones y actualiza la pantalla 
 function resolver() {
-    const n = parseInt(nInput.value);
+    let n = parseInt(inputN.value);
 
+    // Validamos que N sea igual o mayor a 8
     if (isNaN(n) || n < 8) {
-        message.textContent = "Error: el valor de N debe ser igual o mayor a 8.";
+        mensaje.textContent = "El valor de N debe ser mayor o igual a 8.";
         limpiar();
         return;
     }
-//Reiniciamos los datos para que con una nueva ejecución no se mezclen con los resultados anteriores
-    soluciones = [];
-    pasosProceso = [];
-    solucionActual = 0;
-//Representamos el tablero con un arreglo donde cada posición es una fila
-    const tablero = new Array(n).fill(-1);
 
+    // Reiniciamos los datos antes de buscar nuevas soluciones
+    soluciones = [];
+    pasos = [];
+    solucionActual = 0;
+
+    //El arreglo representa el tablero: indice = fila, valor = columna
+    let tablero = new Array(n).fill(-1);
+
+    // Empezamos a buscar soluciones desde la fila 0.
     buscarSoluciones(tablero, 0, n);
 
-//Sí no encuentro ninguna solución, limpia pantalla y avisa al usuario 
     if (soluciones.length === 0) {
-        message.textContent = "No se encontraron soluciones.";
+        mensaje.textContent = "No se encontraron soluciones.";
         limpiar();
         return;
     }
 
-    message.textContent = `Se encontraron ${soluciones.length} soluciones. Mostrando solución 1 de ${soluciones.length}.`;
+    mensaje.textContent = "Se encontraron " + soluciones.length + " soluciones.";
 
-    
-    nextBtn.disabled = soluciones.length <= 1;//Habilitamos el botón siguiente solo si hay más de una solución disponible.
+    btnSiguiente.disabled = soluciones.length <= 1;
 
-//Mostramos el proceso y la primera solución encontrada
-    animarProceso(n);
+    mostrarProceso(n);
     mostrarSolucion();
 }
 
-
 function buscarSoluciones(tablero, fila, n) {
-    if (fila === n) { //Si se completaron todas las filas, se encontró una solucion.
+    // Si llegamos a N, significa que ya pudimos ubicar todas  las reinas
+    if (fila === n) {
         soluciones.push([...tablero]);
         return;
     }
-//Probamos colocar una reina en cada columna de la fila actual.
+
+    //Probamos una reina en cada columna de la fila actual
     for (let columna = 0; columna < n; columna++) {
-        if (esSeguro(tablero, fila, columna)) { //Solo avanzamos si la posición no es atacada por otra reina
+        if (esSeguro(tablero, fila, columna)) {
             tablero[fila] = columna;
 
+            // Guardamos algunos pasos del primer recorrido para mostrar el proceso
             if (soluciones.length === 0) {
-                pasosProceso.push([...tablero]);
+                pasos.push([...tablero]);
             }
 
             buscarSoluciones(tablero, fila + 1, n);
 
+            //Sacamos la reina para probar otra columna
             tablero[fila] = -1;
         }
     }
 }
 
-//Verificamos si una reina puede colocarse sin compartir columna ni diagonal.
-function esSeguro(tablero, filaActual, columnaActual) {
-    for (let filaAnterior = 0; filaAnterior < filaActual; filaAnterior++) {
-        const columnaAnterior = tablero[filaAnterior];
+function esSeguro(tablero, fila, columna) {
+    for (let i = 0; i < fila; i++) {
+        let columnaAnterior = tablero[i];
 
-        const mismaColumna = columnaAnterior === columnaActual; //Comprobamos si hay otra reina en la misma columna
+        //no puede haber dos reinas en la misma columna
+        if (columnaAnterior === columna) {
+            return false;
+        }
 
-        const mismaDiagonal =
-            Math.abs(filaActual - filaAnterior) ===
-            Math.abs(columnaActual - columnaAnterior);
-
-        if (mismaColumna || mismaDiagonal) {
+        // tampoco puede haber dos reinas en la misma diagonal
+        if (Math.abs(fila - i) === Math.abs(columna - columnaAnterior)) {
             return false;
         }
     }
@@ -90,21 +92,26 @@ function esSeguro(tablero, filaActual, columnaActual) {
     return true;
 }
 
-//Mostramos en pantalla la solución actual y su arreglo de indices
-function mostrarSolucion() {
-    const n = parseInt(nInput.value);
-    const solucion = soluciones[solucionActual];
+function mostrarProceso(n) {
+    //mostramos el último paso guardado del proceso
+    let ultimoPaso = pasos[pasos.length - 1];
 
-    dibujarTablero(solutionBoard, solucion, n); //Dibujo del tablero final con las reinas ubicadas
-
-    indexes.textContent = "[" + solucion.join(", ") + "]";
-
-    message.textContent =
-        `Mostrando solución ${solucionActual + 1} de ${soluciones.length}`;
+    dibujarTablero(tableroProceso, ultimoPaso, n);
 }
 
-//Avanza a la siguiente solución y vuelve a la primera al llegar al final
-function siguienteSolucion() {
+function mostrarSolucion() {
+    let n = parseInt(inputN.value);
+    let solucion = soluciones[solucionActual];
+
+    dibujarTablero(tableroSolucion, solucion, n);
+
+    arregloHTML.textContent = "[" + solucion.join(", ") + "]";
+
+    mensaje.textContent =
+        "Mostrando solución " + (solucionActual + 1) + " de " + soluciones.length;
+}
+
+function mostrarSiguiente() {
     solucionActual++;
 
     if (solucionActual >= soluciones.length) {
@@ -114,69 +121,36 @@ function siguienteSolucion() {
     mostrarSolucion();
 }
 
-//Reproducimos visualmente los pasos guardados durante la búsqueda inicial
-function animarProceso(n) {
-    let paso = 0;
-
-    const intervalo = setInterval(() => { //Colocamos un uso de intervalo para que el proceso no aparezca todo de golpe
-        if (paso >= pasosProceso.length) {
-            clearInterval(intervalo);
-            return;
-        }
-
-        dibujarTablero(processBoard, pasosProceso[paso], n);
-        paso++;
-    }, 250);
-}
-
-//Dibujamos dinamicamente un tablero de tamaño N x N dentro del contenedor recibido.
 function dibujarTablero(contenedor, arreglo, n) {
     contenedor.innerHTML = "";
 
-    let tamanioCelda = 46;
+    contenedor.style.gridTemplateColumns = "repeat(" + n + ", 45px)";
 
-    if (n > 10) {
-        tamanioCelda = 34;
-    }
-
-    if (n > 14) {
-        tamanioCelda = 26;
-    }
-
-//Definimos la cantidad de filas y columnas del tablero.
-    contenedor.style.gridTemplateColumns = `repeat(${n}, ${tamanioCelda}px)`;
-    contenedor.style.gridTemplateRows = `repeat(${n}, ${tamanioCelda}px)`;
-
-//Recorremos cada posición del tablero para crear sus celdas
     for (let fila = 0; fila < n; fila++) {
         for (let columna = 0; columna < n; columna++) {
-            const celda = document.createElement("div");
+            let casilla = document.createElement("div");
 
-            celda.classList.add("cell");
-
-            celda.style.width = tamanioCelda + "px";
-            celda.style.height = tamanioCelda + "px";
+            casilla.classList.add("casilla");
 
             if ((fila + columna) % 2 === 0) {
-                celda.classList.add("white");
+                casilla.classList.add("blanca");
             } else {
-                celda.classList.add("black");
+                casilla.classList.add("negra");
             }
 
             if (arreglo[fila] === columna) {
-                celda.textContent = "♛";
-                celda.classList.add("queen");
+                casilla.textContent = "♛";
+                casilla.classList.add("reina");
             }
 
-            contenedor.appendChild(celda);
+            contenedor.appendChild(casilla);
         }
     }
 }
 
-//Limpia los tableros y desactiva el botón de siguiente solución.
 function limpiar() {
-    processBoard.innerHTML = "";
-    solutionBoard.innerHTML = "";
-    indexes.textContent = "[]";
-    nextBtn.disabled = true;
+    tableroProceso.innerHTML = "";
+    tableroSolucion.innerHTML = "";
+    arregloHTML.textContent = "[]";
+    btnSiguiente.disabled = true;
 }
