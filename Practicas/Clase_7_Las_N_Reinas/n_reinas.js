@@ -7,41 +7,54 @@ const mensaje = document.getElementById("mensaje");
 const arregloHTML = document.getElementById("arreglo");
 
 let soluciones = [];
-let pasos = [];
+let pasosSoluciones = [];
 let solucionActual = 0;
+let pasoActual = 0;
+let animacion = null;
+let limiteSoluciones = 0;
 
 // Botones principales del programa
 btnResolver.addEventListener("click", resolver);
 btnSiguiente.addEventListener("click", mostrarSiguiente);
 
 function resolver() {
-    let n = parseInt(inputN.value);
+    let valor = inputN.value.trim();
+    let n = Number(valor);
+    limiteSoluciones = n >= 14 ? 5 : Infinity;
 
-    // Validamos que N sea igual o mayor a 8
-    if (isNaN(n) || n < 8) {
-        mensaje.textContent = "El valor de N debe ser mayor o igual a 8.";
+    // Validamos que sea numero, entero y mayor o igual a 8
+    if (
+        valor === "" ||
+        isNaN(n) ||
+        !Number.isInteger(n) ||
+        n < 8
+    ) {
+        mensaje.innerHTML =
+            "Error: debe ingresar un número entero mayor o igual a 8.";
+
         limpiar();
         return;
     }
 
     // Reiniciamos los datos antes de buscar nuevas soluciones
     soluciones = [];
-    pasos = [];
+    pasosSoluciones = [];
     solucionActual = 0;
 
     //El arreglo representa el tablero: indice = fila, valor = columna
+    // El -1 para indica que no hay reinas
     let tablero = new Array(n).fill(-1);
 
     // Empezamos a buscar soluciones desde la fila 0.
     buscarSoluciones(tablero, 0, n);
 
     if (soluciones.length === 0) {
-        mensaje.textContent = "No se encontraron soluciones.";
+        mensaje.innerHTML = "No se encontraron soluciones.";
         limpiar();
         return;
     }
 
-    mensaje.textContent = "Se encontraron " + soluciones.length + " soluciones.";
+    mensaje.innerHTML = "Se encontraron " + soluciones.length + " soluciones.";
 
     btnSiguiente.disabled = soluciones.length <= 1;
 
@@ -49,26 +62,29 @@ function resolver() {
     mostrarSolucion();
 }
 
-function buscarSoluciones(tablero, fila, n) {
-    // Si llegamos a N, significa que ya pudimos ubicar todas  las reinas
-    if (fila === n) {
-        soluciones.push([...tablero]);
+function buscarSoluciones(tablero, fila, n, pasosActuales = []) {
+    if (soluciones.length >= limiteSoluciones) {
         return;
     }
 
-    //Probamos una reina en cada columna de la fila actual
+    // Si fila es igual a n, significa que colocamos todas las reinas correspondientes 
+    if (fila === n) {
+        soluciones.push([...tablero]);
+        pasosSoluciones.push([...pasosActuales]);
+        return;
+    }
+
+    // Revisamos cada columna de la fila actual para ver si es seguro poner una reina
     for (let columna = 0; columna < n; columna++) {
         if (esSeguro(tablero, fila, columna)) {
             tablero[fila] = columna;
 
-            // Guardamos algunos pasos del primer recorrido para mostrar el proceso
-            if (soluciones.length === 0) {
-                pasos.push([...tablero]);
-            }
+            pasosActuales.push([...tablero]);
 
-            buscarSoluciones(tablero, fila + 1, n);
+            // Busca en la siguiente fila
+            buscarSoluciones(tablero, fila + 1, n, pasosActuales);
 
-            //Sacamos la reina para probar otra columna
+            pasosActuales.pop();
             tablero[fila] = -1;
         }
     }
@@ -93,10 +109,27 @@ function esSeguro(tablero, fila, columna) {
 }
 
 function mostrarProceso(n) {
-    //mostramos el último paso guardado del proceso
-    let ultimoPaso = pasos[pasos.length - 1];
+    pasoActual = 0;
 
-    dibujarTablero(tableroProceso, ultimoPaso, n);
+    if (animacion !== null) {
+        clearInterval(animacion);
+    }
+
+    let pasos = pasosSoluciones[solucionActual];
+
+    dibujarTablero(tableroProceso, pasos[pasoActual], n);
+
+    animacion = setInterval(() => {
+        pasoActual++;
+
+        if (pasoActual >= pasos.length) {
+            clearInterval(animacion);
+            animacion = null;
+            return;
+        }
+
+        dibujarTablero(tableroProceso, pasos[pasoActual], n);
+    }, 700);
 }
 
 function mostrarSolucion() {
@@ -104,11 +137,29 @@ function mostrarSolucion() {
     let solucion = soluciones[solucionActual];
 
     dibujarTablero(tableroSolucion, solucion, n);
+    let indices = [];
 
-    arregloHTML.textContent = "[" + solucion.join(", ") + "]";
+    for (let fila = 0; fila < solucion.length; fila++) {
+        indices.push(
+            "(" + (fila + 1) + ", " + (solucion[fila] + 1) + ")"
+        );
+    }
 
-    mensaje.textContent =
-        "Mostrando solución " + (solucionActual + 1) + " de " + soluciones.length;
+    arregloHTML.innerHTML = "[" + indices.join(", ") + "]";
+
+    if (n >= 14) {
+        mensaje.innerHTML =
+            "Se mostrarán solo las primeras 5 soluciones por rendimiento.<br>" +
+            "Mostrando solución " +
+            (solucionActual + 1) +
+            " de " +
+            soluciones.length;
+    } else {
+        mensaje.innerHTML =
+            "Mostrando solución " + (solucionActual + 1) + " de " + soluciones.length;
+
+    }
+    mostrarProceso(n);
 }
 
 function mostrarSiguiente() {
@@ -139,7 +190,7 @@ function dibujarTablero(contenedor, arreglo, n) {
             }
 
             if (arreglo[fila] === columna) {
-                casilla.textContent = "♛";
+                casilla.innerHTML = "♛";
                 casilla.classList.add("reina");
             }
 
@@ -151,6 +202,11 @@ function dibujarTablero(contenedor, arreglo, n) {
 function limpiar() {
     tableroProceso.innerHTML = "";
     tableroSolucion.innerHTML = "";
-    arregloHTML.textContent = "[]";
+    arregloHTML.innerHTML = "[]";
     btnSiguiente.disabled = true;
+
+    if (animacion !== null) {
+        clearInterval(animacion);
+        animacion = null;
+    }
 }
