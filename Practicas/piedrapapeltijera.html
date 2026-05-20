@@ -1,16 +1,316 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Piedra, papel y tijera</title>
-    
-</head>
-<body>
-    <h1>Piedra 🥌, Papel 🧻y Tijera ✂</h1>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Piedra, Papel y Tijera</title>
 
-    <div id="reinicio"></div>
-    
-    <script src = "codigo.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background:#0f172a;
+      font-family:'Inter', sans-serif;
+      color:white;
+    }
+
+    .container{
+      background:#1e293b;
+      padding:40px;
+      border-radius:20px;
+      width:450px;
+      text-align:center;
+      box-shadow:0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    h1{
+      margin-bottom:25px;
+      font-size:2rem;
+    }
+
+    .botones{
+      display:flex;
+      gap:15px;
+      justify-content:center;
+      margin-bottom:30px;
+      flex-wrap:wrap;
+    }
+
+    button{
+      border:none;
+      cursor:pointer;
+      padding:15px 20px;
+      border-radius:12px;
+      font-size:1.1rem;
+      transition:0.2s;
+      font-weight:bold;
+    }
+
+    button:hover{
+      transform:scale(1.05);
+    }
+
+    .piedra{
+      background:#94a3b8;
+    }
+
+    .papel{
+      background:#38bdf8;
+    }
+
+    .tijera{
+      background:#f87171;
+    }
+
+    .reset{
+      margin-top:20px;
+      background:#22c55e;
+      color:white;
+      width:100%;
+    }
+
+    .resultado{
+      margin-top:20px;
+      font-size:1.2rem;
+      line-height:2;
+    }
+
+    .emoji{
+      font-size:3rem;
+      margin:15px 0;
+    }
+
+    .marcador{
+      margin-top:25px;
+      background:#0f172a;
+      padding:20px;
+      border-radius:15px;
+    }
+
+    .marcador h2{
+      margin-bottom:15px;
+      font-size:1.4rem;
+    }
+
+    .stats{
+      display:flex;
+      justify-content:space-around;
+      font-size:1.1rem;
+      font-weight:bold;
+    }
+
+    .ganadas{
+      color:#22c55e;
+    }
+
+    .perdidas{
+      color:#ef4444;
+    }
+
+    .empates{
+      color:#facc15;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h1>✊ Piedra, 📄 Papel y ✂️ Tijera</h1>
+
+    <div class="botones">
+
+      <button class="piedra" onclick="jugar(1)">
+        ✊ Piedra
+      </button>
+
+      <button class="papel" onclick="jugar(2)">
+        📄 Papel
+      </button>
+
+      <button class="tijera" onclick="jugar(3)">
+        ✂️ Tijera
+      </button>
+
+    </div>
+
+    <div class="resultado">
+
+      <div id="jugador"></div>
+
+      <div id="pc"></div>
+
+      <div class="emoji" id="emojiResultado">
+        🎮
+      </div>
+
+      <div id="resultadoFinal">
+        Elegí una opción
+      </div>
+
+    </div>
+
+    <div class="marcador">
+
+      <h2>📊 Marcador</h2>
+
+      <div class="stats">
+
+        <div class="ganadas">
+          🏆 <span id="ganadas">0</span>
+        </div>
+
+        <div class="perdidas">
+          💀 <span id="perdidas">0</span>
+        </div>
+
+        <div class="empates">
+          🤝 <span id="empates">0</span>
+        </div>
+
+      </div>
+
+    </div>
+
+    <button class="reset" onclick="reiniciarJuego()">
+      🔄 Reiniciar Juego
+    </button>
+
+  </div>
+
+  <script>
+
+    // Contadores
+    let ganadas = 0;
+    let perdidas = 0;
+    let empates = 0;
+
+    // Arrow function
+    const numeroRandom = (min, max) => {
+      return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
+    function nombreJugada(numero){
+
+      if(numero == 1){
+        return "✊ Piedra";
+      } else if(numero == 2){
+        return "📄 Papel";
+      } else {
+        return "✂️ Tijera";
+      }
+    }
+
+    function actualizarMarcador(){
+
+      document.getElementById("ganadas").innerHTML = ganadas;
+
+      document.getElementById("perdidas").innerHTML = perdidas;
+
+      document.getElementById("empates").innerHTML = empates;
+    }
+
+    function jugar(jugador){
+
+      let min = 1;
+      let max = 3;
+
+      let pc = numeroRandom(min, max);
+
+      document.getElementById("jugador").innerHTML =
+        "Jugador eligió: " + nombreJugada(jugador);
+
+      document.getElementById("pc").innerHTML =
+        "PC eligió: " + nombreJugada(pc);
+
+      // Combate
+      if(pc == jugador){
+
+        empates++;
+
+        document.getElementById("resultadoFinal").innerHTML =
+          "🤝 EMPATE";
+
+        document.getElementById("emojiResultado").innerHTML =
+          "🤝";
+
+      } else if(jugador == 1 && pc == 3){
+
+        ganadas++;
+
+        document.getElementById("resultadoFinal").innerHTML =
+          "🎉 GANASTE!";
+
+        document.getElementById("emojiResultado").innerHTML =
+          "🏆";
+
+      } else if(jugador == 2 && pc == 1){
+
+        ganadas++;
+
+        document.getElementById("resultadoFinal").innerHTML =
+          "🎉 GANASTE!";
+
+        document.getElementById("emojiResultado").innerHTML =
+          "🏆";
+
+      } else if(jugador == 3 && pc == 2){
+
+        ganadas++;
+
+        document.getElementById("resultadoFinal").innerHTML =
+          "🎉 GANASTE!";
+
+        document.getElementById("emojiResultado").innerHTML =
+          "🏆";
+
+      } else {
+
+        perdidas++;
+
+        document.getElementById("resultadoFinal").innerHTML =
+          "💀 PERDISTE!";
+
+        document.getElementById("emojiResultado").innerHTML =
+          "😢";
+      }
+
+      actualizarMarcador();
+    }
+
+    function reiniciarJuego(){
+
+      document.getElementById("jugador").innerHTML = "";
+
+      document.getElementById("pc").innerHTML = "";
+
+      document.getElementById("resultadoFinal").innerHTML =
+        "Elegí una opción";
+
+      document.getElementById("emojiResultado").innerHTML =
+        "🎮";
+
+      // Reiniciar contadores
+      ganadas = 0;
+      perdidas = 0;
+      empates = 0;
+
+      actualizarMarcador();
+    }
+
+  </script>
+
 </body>
 </html>
