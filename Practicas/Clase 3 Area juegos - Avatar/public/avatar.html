@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Juego Avatar</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #87ceeb, #f4f4f4);
+      text-align: center;
+    }
+    h1 {
+      font-size: 3em;
+      margin: 20px;
+      color: #333;
+    }
+    section {
+      margin: 30px auto;
+      padding: 20px;
+      border: 2px solid #333;
+      width: 70%;
+      background: #fff;
+      border-radius: 10px;
+    }
+    .personajes {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .personaje {
+      text-align: center;
+      margin: 10px;
+      font-size: 1.2em;
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 1em;
+      cursor: pointer;
+      background-color: #ff9800;
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      font-weight: bold;
+    }
+    .vidas {
+      margin: 10px;
+      font-size: 1.2em;
+    }
+    .resultado {
+      font-size: 1.5em;
+      margin-top: 20px;
+      font-weight: bold;
+      color: darkred;
+    }
+  </style>
+</head>
+<body>
+  <h1>AVATAR 💦🔥🌪️🪨</h1>
+
+  <section id="seleccionar-personaje">
+    <h2>Elige tu personaje</h2>
+    <div class="personajes">
+      <div class="personaje">
+        🔥 Zuko → Fuego <br>
+        <label><input type="radio" name="personaje" value="Zuko"> Seleccionar</label>
+      </div>
+      <div class="personaje">
+        💦 Katara → Agua <br>
+        <label><input type="radio" name="personaje" value="Katara"> Seleccionar</label>
+      </div>
+      <div class="personaje">
+        🌪️ Aang → Aire <br>
+        <label><input type="radio" name="personaje" value="Aang"> Seleccionar</label>
+      </div>
+      <div class="personaje">
+        🪨 Toph → Tierra <br>
+        <label><input type="radio" name="personaje" value="Toph"> Seleccionar</label>
+      </div>
+    </div>
+    <button onclick="seleccionarPersonaje()">Confirmar</button>
+  </section>
+
+  <section id="seleccionar-ataque" style="display:none;">
+    <h2>Tu ataque</h2>
+    <div class="vidas" id="vidas"></div>
+    <div id="botones-ataque"></div>
+    <div class="resultado" id="resultado"></div>
+    <button onclick="reiniciarJuego()">🔄 Reiniciar</button>
+  </section>
+
+  <script>
+    let jugador = null;
+    let vidasJugador = 3;
+    let vidasEnemigo = 3;
+    let ataqueJugador = null;
+
+    const ataquesPorPersonaje = {
+      "Zuko": "Fuego",
+      "Katara": "Agua",
+      "Aang": "Aire",
+      "Toph": "Tierra"
+    };
+
+    function seleccionarPersonaje() {
+      const seleccion = document.querySelector('input[name="personaje"]:checked');
+      if (!seleccion) {
+        alert("Debes elegir un personaje");
+        return;
+      }
+      jugador = seleccion.value;
+      ataqueJugador = ataquesPorPersonaje[jugador];
+      document.getElementById("seleccionar-personaje").style.display = "none";
+      document.getElementById("seleccionar-ataque").style.display = "block";
+      mostrarBotonAtaque();
+      actualizarVidas();
+    }
+
+    function mostrarBotonAtaque() {
+      const contenedor = document.getElementById("botones-ataque");
+      contenedor.innerHTML = `<button onclick="atacar('${ataqueJugador}')">${iconoElemento(ataqueJugador)} ${ataqueJugador}</button>`;
+    }
+
+    function iconoElemento(elemento) {
+      switch(elemento) {
+        case "Agua": return "💦";
+        case "Fuego": return "🔥";
+        case "Aire": return "🌪️";
+        case "Tierra": return "🪨";
+      }
+    }
+
+    function actualizarVidas() {
+      document.getElementById("vidas").innerText =
+        `${jugador}: ${vidasJugador} vidas | Enemigo: ${vidasEnemigo} vidas`;
+    }
+
+    function ataqueEnemigo() {
+      const elementos = ["Agua","Fuego","Aire","Tierra"];
+      return elementos[Math.floor(Math.random()*4)];
+    }
+
+    function logicaCombate(jugadorAtaque, enemigoAtaque) {
+      if (jugadorAtaque === enemigoAtaque) return "empate";
+      if (
+        (jugadorAtaque === "Agua" && enemigoAtaque === "Fuego") ||
+        (jugadorAtaque === "Fuego" && enemigoAtaque === "Aire") ||
+        (jugadorAtaque === "Aire" && enemigoAtaque === "Tierra") ||
+        (jugadorAtaque === "Tierra" && enemigoAtaque === "Agua")
+      ) {
+        return "jugador";
+      }
+      return "enemigo";
+    }
+
+    function atacar(elemento) {
+      if (vidasJugador <= 0 || vidasEnemigo <= 0) return;
+      const enemigoAtaque = ataqueEnemigo();
+      const resultado = logicaCombate(elemento, enemigoAtaque);
+
+      if (resultado === "jugador") {
+        vidasEnemigo--;
+        document.getElementById("resultado").innerText =
+          `${jugador} atacó con ${iconoElemento(elemento)} ${elemento}, enemigo con ${iconoElemento(enemigoAtaque)} ${enemigoAtaque}. ¡Ganaste esta ronda!`;
+      } else if (resultado === "enemigo") {
+        vidasJugador--;
+        document.getElementById("resultado").innerText =
+          `${jugador} atacó con ${iconoElemento(elemento)} ${elemento}, enemigo con ${iconoElemento(enemigoAtaque)} ${enemigoAtaque}. ¡Perdiste esta ronda!`;
+      } else {
+        document.getElementById("resultado").innerText =
+          `Ambos atacaron con ${iconoElemento(elemento)} ${elemento}. ¡Empate!`;
+      }
+
+      actualizarVidas();
+
+      if (vidasJugador === 0 || vidasEnemigo === 0) {
+        if (vidasJugador > vidasEnemigo) {
+          document.getElementById("resultado").innerText =
+            `¡${jugador} ganó con ${vidasJugador} vidas restantes!`;
+        } else {
+          document.getElementById("resultado").innerText =
+            `El enemigo ganó con ${vidasEnemigo} vidas restantes.`;
+        }
+      }
+    }
+
+    function reiniciarJuego() {
+      // Reinicia la interfaz pero conserva las vidas actuales
+      document.getElementById("seleccionar-personaje").style.display = "block";
+      document.getElementById("seleccionar-ataque").style.display = "none";
+      document.getElementById("resultado").innerText = "";
+      actualizarVidas();
+    }
+  </script>
+</body>
+</html>
