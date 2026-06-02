@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tour del Caballo ♞</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="contenedor">
+
+    <header>
+      <h1>♞ Tour del Caballo</h1>
+      <p class="subtitulo">Algoritmo de vuelta atrás · Tablero 8×8</p>
+    </header>
+
+    <!-- Barra de estado y contador de saltos -->
+    <div class="panel-info">
+      <span id="estado">📍 Elige una casilla para empezar</span>
+      <span id="contador" class="contador">Salto 0 / 63</span>
+    </div>
+
+    <!-- Aquí se dibuja el tablero con JavaScript -->
+    <div class="tablero-wrapper">
+      <div id="tablero" class="tablero"></div>
+    </div>
+
+    <!-- Controles: velocidad y botones -->
+    <div class="controles">
+
+      <div class="velocidad">
+        <label for="speed">⚡ Velocidad</label>
+        <input type="range" id="speed" min="50" max="500" value="250" step="50">
+        <span id="speedLabel">Normal</span>
+      </div>
+
+      <div class="botones">
+        <button id="btnResolver" class="btn btn-resolver" disabled>▶ Resolver</button>
+        <button id="btnReiniciar" class="btn btn-reiniciar">↺ Reiniciar</button>
+      </div>
+
+    </div>
+
+    <!-- Referencia de colores -->
+    <div class="leyenda">
+      <span class="leyenda-item"><span class="muestra inicio-m">♞</span> Inicio elegido</span>
+      <span class="leyenda-item"><span class="muestra actual-m">♞</span> Posición actual</span>
+      <span class="leyenda-item"><span class="muestra visitada-m">n</span> Casilla visitada</span>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
