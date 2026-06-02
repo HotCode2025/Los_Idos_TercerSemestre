@@ -1,0 +1,297 @@
+/* =====================================================
+   VARIABLES GLOBALES
+   ===================================================== */
+:root {
+  --celda:    clamp(36px, 9vw, 66px);   /* tamaño de cada casilla (responsive) */
+  --fondo:    #111827;
+  --clara:    #f0d9b5;                  /* casilla clara del tablero */
+  --oscura:   #b58863;                  /* casilla oscura del tablero */
+  --oro:      #f4c430;
+  --azul:     #1e88e5;                  /* color: caballo en casilla de inicio */
+  --verde:    #43a047;                  /* color: casilla donde está el caballo ahora */
+  --celeste:  rgba(144, 202, 249, 0.8); /* color: casilla ya visitada */
+}
+
+/* =====================================================
+   RESET Y BASE
+   ===================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--fondo);
+  background-image: radial-gradient(ellipse at top, #1a2744 0%, #111827 65%);
+  color: #e0e0e0;
+  font-family: 'Merriweather', serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 24px 16px 48px;
+}
+
+.contenedor {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+/* =====================================================
+   ENCABEZADO
+   ===================================================== */
+header {
+  text-align: center;
+}
+
+h1 {
+  font-size: clamp(1.6rem, 5vw, 2.4rem);
+  color: var(--oro);
+  letter-spacing: 2px;
+  margin-bottom: 5px;
+}
+
+.subtitulo {
+  font-size: 0.78rem;
+  color: #666;
+  letter-spacing: 1px;
+}
+
+/* =====================================================
+   PANEL DE INFORMACIÓN (estado + contador)
+   ===================================================== */
+.panel-info {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 0.87rem;
+}
+
+.contador {
+  font-family: 'Courier Prime', monospace;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--oro);
+  white-space: nowrap;
+}
+
+/* =====================================================
+   TABLERO
+   ===================================================== */
+.tablero-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.tablero {
+  display: grid;
+  grid-template-columns: repeat(8, var(--celda));
+  grid-template-rows:    repeat(8, var(--celda));
+  border: 3px solid var(--oro);
+  border-radius: 2px;
+  box-shadow:
+    0 0 0 6px rgba(244, 196, 48, 0.08),
+    0 10px 50px rgba(0, 0, 0, 0.7);
+}
+
+/* =====================================================
+   CASILLAS
+   ===================================================== */
+.celda {
+  width: var(--celda);
+  height: var(--celda);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  transition: filter 0.15s;
+  font-family: 'Courier Prime', monospace;
+  font-size: clamp(10px, 2.2vw, 14px);
+  font-weight: 700;
+}
+
+.celda.clara  { background: var(--clara);  color: #795548; }
+.celda.oscura { background: var(--oscura); color: #f5e6cf; }
+
+.celda:hover {
+  filter: brightness(1.2);
+}
+
+/* Casilla elegida como inicio */
+.celda.inicio {
+  background: var(--azul) !important;
+  color: white !important;
+  font-size: clamp(20px, 5vw, 32px) !important;
+}
+
+/* Casilla donde está el caballo en este momento */
+.celda.actual {
+  background: var(--verde) !important;
+  color: white !important;
+  font-size: clamp(20px, 5vw, 32px) !important;
+  animation: salto 0.3s ease-out;
+}
+
+/* Casilla que ya fue visitada (muestra el número de salto) */
+.celda.visitada {
+  background: var(--celeste) !important;
+  color: #0a1628 !important;
+  font-size: clamp(10px, 2vw, 14px) !important;
+}
+
+/* Animación de salto del caballo */
+@keyframes salto {
+  0%   { transform: scale(1.45); }
+  100% { transform: scale(1); }
+}
+
+/* =====================================================
+   CONTROLES (velocidad + botones)
+   ===================================================== */
+.controles {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.velocidad {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8rem;
+  color: #888;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 130px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  background: var(--oro);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  background: var(--oro);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+}
+
+#speedLabel {
+  font-family: 'Courier Prime', monospace;
+  color: var(--oro);
+  min-width: 80px;
+}
+
+.botones {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn {
+  padding: 11px 28px;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Merriweather', serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+}
+
+.btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.btn-resolver {
+  background: var(--oro);
+  color: #111;
+}
+
+.btn-resolver:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 18px rgba(244, 196, 48, 0.45);
+}
+
+.btn-reiniciar {
+  background: transparent;
+  color: #999;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.btn-reiniciar:hover:not(:disabled) {
+  color: white;
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+/* =====================================================
+   LEYENDA DE COLORES
+   ===================================================== */
+.leyenda {
+  display: flex;
+  gap: 18px;
+  font-size: 0.76rem;
+  color: #777;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.leyenda-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.muestra {
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.inicio-m   { background: var(--azul);    color: white; }
+.actual-m   { background: var(--verde);   color: white; }
+.visitada-m {
+  background: var(--celeste);
+  color: #0a1628;
+  font-family: 'Courier Prime', monospace;
+  font-size: 10px;
+}
