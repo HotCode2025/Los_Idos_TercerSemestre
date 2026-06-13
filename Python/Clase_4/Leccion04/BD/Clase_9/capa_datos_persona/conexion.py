@@ -14,7 +14,9 @@ class Conexion:
 
     @classmethod
     def obtenerConexion(cls):
-        pass
+        conexion = cls.obtenerPool().getconn()
+        log.debug(f'Conexión obtenida del pool: {conexion}')
+        return conexion
 
     @classmethod
     def obtenerCursor(cls):
@@ -32,6 +34,7 @@ class Conexion:
                                                         port=cls._PORT,
                                                         database=cls._DATABASE)
                 log.debug(f'creación del pool exitosa: {cls._pool}')
+                return cls._pool
             except Exception as e:
                 log.error(f'Ocurrió un error al obtener el pool: {e}')
                 sys.exit()
@@ -40,4 +43,8 @@ class Conexion:
 
 
 if __name__ == '__main__':
-    pass
+    conexion1 = Conexion.obtenerConexion()
+    conexion2 = Conexion.obtenerConexion()
+    conexion3 = Conexion.obtenerConexion()
+    conexion4 = Conexion.obtenerConexion()
+    conexion5 = Conexion.obtenerConexion()
