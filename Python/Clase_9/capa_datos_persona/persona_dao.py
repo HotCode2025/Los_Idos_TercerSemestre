@@ -1,6 +1,6 @@
-from conexion import Conexion
-from Persona import Persona
-from logger_base import log
+from Python.Clase_9.capa_datos_persona.conexion import Conexion
+from Python.Clase_9.capa_datos_persona.Persona import Persona
+from Python.Clase_9.capa_datos_persona.logger_base import log
 
 class PersonaDAO:
     """
