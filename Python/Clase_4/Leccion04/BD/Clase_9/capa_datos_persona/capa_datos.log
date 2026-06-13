@@ -1,0 +1,65 @@
+09:59:50 PM:DEBUG [logger_base.py:14] Mensaje a nivel debug
+09:59:50 PM:INFO [logger_base.py:15] Mensaje a nivel info
+09:59:50 PM:WARNING [logger_base.py:16] Mensaje a nivel warning
+09:59:50 PM:ERROR [logger_base.py:17] Mensaje a nivel error
+09:59:50 PM:CRITICAL [logger_base.py:18] Mensaje a nivel critical
+10:08:58 PM:DEBUG [Persona.py:48] Persona [id_persona=1, nombre=Juan, apellido=Perez, email=jperez@email.com]
+10:10:21 PM:DEBUG [Persona.py:48] Persona [id_persona=1, nombre=Juan, apellido=Perez, email=jperez@email.com]
+10:12:43 PM:DEBUG [Persona.py:48] Persona [id_persona=1, nombre=Juan, apellido=Perez, email=jperez@email.com]
+10:12:43 PM:DEBUG [Persona.py:50] Persona [id_persona=None, nombre=Jose, apellido=Lepez, email=jlopez@mail.com]
+10:13:42 PM:DEBUG [Persona.py:48] Persona [id_persona=1, nombre=Juan, apellido=Perez, email=jperez@email.com]
+10:13:42 PM:DEBUG [Persona.py:50] Persona [id_persona=None, nombre=Jose, apellido=Lepez, email=jlopez@mail.com]
+10:13:42 PM:DEBUG [Persona.py:52] Persona [id_persona=1, nombre=None, apellido=None, email=None]
+10:28:26 PM:ERROR [conexion.py:26] Occurió un error de tipo: 'utf-8' codec can't decode byte 0xab in position 90: invalid start byte
+10:29:37 PM:ERROR [conexion.py:26] Occurió un error de tipo: 'utf-8' codec can't decode byte 0xab in position 90: invalid start byte
+10:31:43 PM:DEBUG [conexion.py:23] Conexión exitosa: <connection object at 0x000001DE26B2BEF0; dsn: 'user=postgres password=xxx dbname=test_bd host=127.0.0.1 port=5432', closed: 0>
+10:34:30 PM:DEBUG [conexion.py:23] Conexión exitosa: <connection object at 0x000001F56EA7FEF0; dsn: 'user=postgres password=xxx dbname=test_bd host=127.0.0.1 port=5432', closed: 0>
+10:44:41 PM:DEBUG [conexion.py:23] Conexión exitosa: <connection object at 0x000002C4A153FEF0; dsn: 'user=postgres password=xxx dbname=test_bd host=127.0.0.1 port=5432', closed: 0>
+10:45:05 PM:DEBUG [conexion.py:23] Conexión exitosa: <connection object at 0x00000222F4FCFEF0; dsn: 'user=postgres password=xxx dbname=test_bd host=127.0.0.1 port=5432', closed: 0>
+10:46:04 PM:DEBUG [conexion.py:23] Conexión exitosa: <connection object at 0x0000023F64A5FEF0; dsn: 'user=postgres password=xxx dbname=test_bd host=127.0.0.1 port=5432', closed: 0>
+10:50:17 PM:DEBUG [conexion.py:23] Conexión exitosa: <connection object at 0x0000026A3888F450; dsn: 'user=postgres password=xxx dbname=test_bd host=127.0.0.1 port=5432', closed: 0>
+10:50:17 PM:DEBUG [conexion.py:36] Se abrió correctamente el cursor: <cursor object at 0x0000026A3A566EA0; closed: 0>
+08:10:56 PM:DEBUG [conexion.py:23] Conexión exitosa: <connection object at 0x0000023971CB7450; dsn: 'user=postgres password=xxx dbname=test_bd host=127.0.0.1 port=5432', closed: 0>
+08:10:56 PM:DEBUG [conexion.py:36] Se abrió correctamente el cursor: <cursor object at 0x0000023972073140; closed: 0>
+08:11:15 PM:DEBUG [conexion.py:23] Conexión exitosa: <connection object at 0x000001880A707450; dsn: 'user=postgres password=xxx dbname=test_bd host=127.0.0.1 port=5432', closed: 0>
+08:11:15 PM:DEBUG [conexion.py:36] Se abrió correctamente el cursor: <cursor object at 0x000001880C3C73E0; closed: 0>
+08:11:17 PM:DEBUG [conexion.py:23] Conexión exitosa: <connection object at 0x0000017044E97450; dsn: 'user=postgres password=xxx dbname=test_bd host=127.0.0.1 port=5432', closed: 0>
+08:11:17 PM:DEBUG [conexion.py:36] Se abrió correctamente el cursor: <cursor object at 0x0000017046AE73E0; closed: 0>
+08:12:25 PM:DEBUG [conexion.py:23] Conexión exitosa: <connection object at 0x00000189124F7450; dsn: 'user=postgres password=xxx dbname=test_bd host=127.0.0.1 port=5432', closed: 0>
+08:12:25 PM:DEBUG [conexion.py:36] Se abrió correctamente el cursor: <cursor object at 0x00000189141F73E0; closed: 0>
+08:12:25 PM:DEBUG [persona_dao.py:37] Persona [id_persona=1, nombre=Pepe, apellido=Argento, email=pargento@mail.com]
+08:12:25 PM:DEBUG [persona_dao.py:37] Persona [id_persona=2, nombre=Karla, apellido=Gomez, email=kgomez@mail.com]
+08:12:25 PM:DEBUG [persona_dao.py:37] Persona [id_persona=9, nombre=Maria, apellido=Esparza, email=mesparza@mail.com]
+08:12:25 PM:DEBUG [persona_dao.py:37] Persona [id_persona=10, nombre=Carlos, apellido=Puchetta, email=cpuchetta@mail.com]
+08:12:25 PM:DEBUG [persona_dao.py:37] Persona [id_persona=11, nombre=Jorge, apellido=Pino, email=jpino@mail.com]
+08:12:25 PM:DEBUG [persona_dao.py:37] Persona [id_persona=12, nombre=Alex, apellido=Rojas, email=arojas@mail.com]
+08:27:26 PM:DEBUG [conexion.py:23] Conexión exitosa: <connection object at 0x000002C6FC30FEF0; dsn: 'user=postgres password=xxx dbname=test_bd host=127.0.0.1 port=5432', closed: 0>
+08:27:26 PM:DEBUG [conexion.py:36] Se abrió correctamente el cursor: <cursor object at 0x000002C6FDF67140; closed: 0>
+08:27:26 PM:DEBUG [persona_dao.py:39] Persona insertada: Persona [id_persona=None, nombre=Pedro, apellido=Romero, email=promero@mail.com]
+08:27:26 PM:DEBUG [persona_dao.py:46] Personas insertadas: 1
+08:27:59 PM:DEBUG [conexion.py:23] Conexión exitosa: <connection object at 0x000002E8D1A2FEF0; dsn: 'user=postgres password=xxx dbname=test_bd host=127.0.0.1 port=5432', closed: 0>
+08:27:59 PM:DEBUG [conexion.py:36] Se abrió correctamente el cursor: <cursor object at 0x000002E8D36A73E0; closed: 0>
+08:27:59 PM:DEBUG [persona_dao.py:39] Persona insertada: Persona [id_persona=None, nombre=Pedro, apellido=Romero, email=promero@mail.com]
+08:27:59 PM:DEBUG [persona_dao.py:46] Personas insertadas: 1
+08:39:21 PM:DEBUG [conexion.py:23] Conexión exitosa: <connection object at 0x0000022CE27C7450; dsn: 'user=postgres password=xxx dbname=test_bd host=127.0.0.1 port=5432', closed: 0>
+08:39:21 PM:DEBUG [conexion.py:36] Se abrió correctamente el cursor: <cursor object at 0x0000022CE44973E0; closed: 0>
+08:41:23 PM:DEBUG [conexion.py:23] Conexión exitosa: <connection object at 0x000001E5CFFB7450; dsn: 'user=postgres password=xxx dbname=test_bd host=127.0.0.1 port=5432', closed: 0>
+08:41:23 PM:DEBUG [conexion.py:36] Se abrió correctamente el cursor: <cursor object at 0x000001E5D1C073E0; closed: 0>
+08:46:00 PM:DEBUG [conexion.py:23] Conexión exitosa: <connection object at 0x0000020D7DA27450; dsn: 'user=postgres password=xxx dbname=test_bd host=127.0.0.1 port=5432', closed: 0>
+08:46:00 PM:DEBUG [conexion.py:36] Se abrió correctamente el cursor: <cursor object at 0x0000020D7F6E73E0; closed: 0>
+08:46:00 PM:DEBUG [persona_dao.py:48] Persona actualizada: Persona [id_persona=1, nombre=Juan José, apellido=Pena, email=jjpena@mail.com]
+08:46:00 PM:DEBUG [persona_dao.py:56] Personas actualizadas: 1
+08:53:26 PM:DEBUG [conexion.py:23] Conexión exitosa: <connection object at 0x0000022537967450; dsn: 'user=postgres password=xxx dbname=test_bd host=127.0.0.1 port=5432', closed: 0>
+08:54:18 PM:DEBUG [conexion.py:23] Conexión exitosa: <connection object at 0x000001D2CC707450; dsn: 'user=postgres password=xxx dbname=test_bd host=127.0.0.1 port=5432', closed: 0>
+08:54:18 PM:DEBUG [conexion.py:36] Se abrió correctamente el cursor: <cursor object at 0x000001D2CE3573E0; closed: 0>
+08:54:18 PM:DEBUG [persona_dao.py:57] Los objetos eliminados son: Persona [id_persona=14, nombre=None, apellido=None, email=None]
+08:54:18 PM:DEBUG [persona_dao.py:65] Personas eliminadas: 1
+08:59:14 PM:DEBUG [conexion.py:23] Conexión exitosa: <connection object at 0x000001E7BD8F7450; dsn: 'user=postgres password=xxx dbname=test_bd host=127.0.0.1 port=5432', closed: 0>
+08:59:14 PM:DEBUG [conexion.py:36] Se abrió correctamente el cursor: <cursor object at 0x000001E7BF5E73E0; closed: 0>
+08:59:14 PM:DEBUG [persona_dao.py:85] Persona [id_persona=1, nombre=Juan José, apellido=Pena, email=jjpena@mail.com]
+08:59:14 PM:DEBUG [persona_dao.py:85] Persona [id_persona=2, nombre=Karla, apellido=Gomez, email=kgomez@mail.com]
+08:59:14 PM:DEBUG [persona_dao.py:85] Persona [id_persona=9, nombre=Maria, apellido=Esparza, email=mesparza@mail.com]
+08:59:14 PM:DEBUG [persona_dao.py:85] Persona [id_persona=10, nombre=Carlos, apellido=Puchetta, email=cpuchetta@mail.com]
+08:59:14 PM:DEBUG [persona_dao.py:85] Persona [id_persona=11, nombre=Jorge, apellido=Pino, email=jpino@mail.com]
+08:59:14 PM:DEBUG [persona_dao.py:85] Persona [id_persona=12, nombre=Alex, apellido=Rojas, email=arojas@mail.com]
+08:59:14 PM:DEBUG [persona_dao.py:85] Persona [id_persona=13, nombre=Pedro, apellido=Romero, email=promero@mail.com]
