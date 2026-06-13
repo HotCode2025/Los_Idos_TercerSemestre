@@ -1,0 +1,43 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>40</x><y>40</y><w>260</w><h>300</h></coordinates><panel_attributes>conexion
+--
+_DATABASE: String_
+_USERNAME: String_
+_PASSWORD: String_
+_DB PORT: String_
+_HOST: String_
+_-conexion: connection_
+_-cursor: Cursor_
+--
+_+obtenerConeexion(cls): Connnection_
+_+obtenerCursor(cls): Cursor_
+_+cerrar(cls)_
+--
+Responsabilidades
+Administra la conexión a la base de datos</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>0</x><y>10</y><w>850</w><h>590</h></coordinates><panel_attributes>acceso_datos
+--</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>520</x><y>40</y><w>260</w><h>170</h></coordinates><panel_attributes>Persona
+--
+-id_Persona: int
+-nombre: String
+-apellido: String
+-email: String
+--
++__str__(): String
++metodo Get/Set de cada atributo
+--
+Responsabilidades
+Crear objetos de la entidad Persona</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>520</x><y>320</y><w>260</w><h>250</h></coordinates><panel_attributes>PersonaDao
+--
+_-SELECCIONAR: String_
+_-INSERTAR: String_
+_-ACTUALIZAR: String_
+_-ELIMINAR: String_
+--
+_+seleccionar(cls)_
+_+insertar(cls, persona)_
+_+actualizar(cls, persona)_
+_+eliminar(cls, persona)_
+--
+Responsabilidades
+Realizar las operaciones sobre la base de 
+datos de la entidad Persona
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>140</x><y>330</y><w>400</w><h>130</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>380;110;10;110;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>640</x><y>200</y><w>30</w><h>140</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;120;10;10</additional_attributes></element></diagram>
