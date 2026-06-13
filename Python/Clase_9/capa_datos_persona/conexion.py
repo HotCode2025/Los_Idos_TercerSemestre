@@ -1,5 +1,5 @@
 from psycopg2 import pool
-from logger_base import log
+from Python.Clase_9.capa_datos_persona.logger_base import log
 import sys
 
 class Conexion:
@@ -41,6 +41,10 @@ class Conexion:
         else:
             return cls._pool
 
+    @classmethod
+    def liberarConexion(cls, conexion):
+        cls.obtenerPool().putconn(conexion)
+        log.debug(f'Regresamos la conexión del pool: {conexion}')
 
 if __name__ == '__main__':
     conexion1 = Conexion.obtenerConexion()

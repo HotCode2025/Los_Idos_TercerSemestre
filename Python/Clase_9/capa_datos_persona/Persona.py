@@ -1,4 +1,4 @@
-from logger_base import log
+from Python.Clase_9.capa_datos_persona.logger_base import log
 
 class Persona:
     def __init__(self, id_persona=None, nombre=None, apellido=None, email=None):
