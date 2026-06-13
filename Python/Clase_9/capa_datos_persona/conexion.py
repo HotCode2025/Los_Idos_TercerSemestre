@@ -44,7 +44,6 @@ class Conexion:
     @classmethod
     def liberarConexion(cls, conexion):
         cls.obtenerPool().putconn(conexion)
-<<<<<<< HEAD
         log.debug(f'Regresamos la conexión al pool: {conexion}')
 
     @classmethod
@@ -52,9 +51,6 @@ class Conexion:
         cls.obtenerPool().closeall()
         log.debug('Se cerraron todas las conexiones del pool')
 
-=======
-        log.debug(f'Regresamos la conexión del pool: {conexion}')
->>>>>>> 5a57e81917a210f58d2b0860f326cbbb7c7ef841
 
 if __name__ == '__main__':
     conexion1 = Conexion.obtenerConexion()
