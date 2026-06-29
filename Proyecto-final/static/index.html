@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Los Idos Arcade</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">Proyecto Integrador Programación III</p>
+      <h1>Los Idos Arcade</h1>
+    </div>
+    <button id="logoutBtn" class="ghost hidden">Cerrar sesión</button>
+  </header>
+
+  <main id="app" class="app-shell">
+    <section class="panel auth-card">
+      <p class="eyebrow">Base de datos incluida</p>
+      <h2 id="authTitle">Iniciar sesión</h2>
+      <p id="authDescription">Ingresá con una cuenta ya creada para continuar con tus puntajes guardados.</p>
+
+      <div class="auth-tabs" aria-label="Elegir modo de acceso">
+        <button type="button" id="loginModeBtn" class="auth-tab active">Ingresar</button>
+        <button type="button" id="registerModeBtn" class="auth-tab">Crear cuenta</button>
+      </div>
+
+      <form id="authForm" class="form-grid">
+        <label>Usuario
+          <input id="username" list="usersDatalist" autocomplete="username" placeholder="Ej: Idos123" required>
+          <datalist id="usersDatalist"></datalist>
+        </label>
+        <label>Contraseña
+          <input id="password" type="password" autocomplete="current-password" required>
+        </label>
+        <div class="actions-row">
+          <button type="submit" id="authSubmit" class="primary">Ingresar</button>
+        </div>
+      </form>
+
+      <p id="authMsg" class="message"></p>
+    </section>
+  </main>
+
+  <footer>
+    <span>Hecho con ❤️ - Los Idos</span>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
